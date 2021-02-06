@@ -1,6 +1,7 @@
 #!/usr/bin/expect -f
 
 # Script to run mprime using expect
+#==============Variable================
 set stress_type [lindex $argv 0]
 set user_input_timeout [lindex $argv 1]
 
@@ -9,11 +10,10 @@ set stress_type [string toupper $stress_type]
 
 set default_timeout 60
 
-##spawn -ignore HUP bash
-#spawn bash
-#send "apt-get update\r"
-#catch wait result
-#after 30000
+#==============Function===============
+proc run_shell_command {command} {
+    exec >&@stdout sh -c $command
+}
 
 proc get_stress_selection {stress_arg} {
     if { $stress_arg == "SMALL" } {
@@ -47,17 +47,19 @@ proc set_timeout {user_input} {
         puts "Timeout configured: $timeout seconds"
     } else {
         set timeout $default_timeout
-      puts "Default timeout: $timeout seconds"
+        puts "Default timeout: $timeout seconds"
     }
 }
 
+#=============Function call=================
 set stress_selection [get_stress_selection $stress_type]
 set_timeout ($user_input_timeout)
 
 spawn mprime
 
+#============Start of expect================
 expect {
- # Choose Just stress testing
+    # Choose Just stress testing
     "Join Gimps? (Y=Yes, N=Just stress testing) (Y):" {
     send -- "N\r"; exp_continue }
 
@@ -84,3 +86,4 @@ expect {
     exit 1}
 
 }
+
