@@ -1,0 +1,50 @@
+#!/usr/bin/expect -f
+
+log_user 0
+
+close [open test.log "w"]
+log_file test.log
+spawn ./mprime 
+
+
+
+set timeout 
+#============Start of expect================
+expect {
+    # Choose Just stress testing
+    "Join Gimps? (Y=Yes, N=Just stress testing) (Y):" {
+    send -- "N\r"; exp_continue }
+
+    # Select 8 threads
+    "Number of torture test threads to run (8):" {
+    send -- "8\r"; exp_continue }
+
+    # 1 = Small
+    # 2 = In-place large
+    # 3 = Blend
+    "Type of torture test to run (3):" {
+#    send -- "$stress_selection\r"; exp_continue}
+
+   # "Accept the answers above? (Y):" {
+   # send -- "Y\r"; exp_continue}
+
+    # At main menu
+    # Select Options/Torture Test
+    "Your choice: " {
+    send -- "13\r"; expect "\r";exp_continue}
+	
+	"Hours per day this program will run (24): " {
+	send -- "\r"; expect "\r"; log_user 0; 
+	expect -re "\nCPU Information:.*\n"
+	log_user 1
+	set cpu_info $expect_out(buffer)
+	# remove 2 blank line before print
+	set trimmed_cpu_info [string trim $cpu_info "\r\n"]	
+	send_user $trimmed_cpu_info\n\n
+	exit 1;  exp_continue}
+    
+	timeout {
+    puts "$timeout seconds is UP"
+    exit 1}
+
+}
