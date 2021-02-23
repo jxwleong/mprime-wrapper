@@ -4,7 +4,7 @@ log_user 0
 
 close [open test.log "w"]
 log_file test.log
-spawn ./mprime 
+spawn ../Downloads/mprime 
 
 
 
@@ -35,7 +35,7 @@ expect {
 	
 	"Hours per day this program will run (24): " {
 	send -- "\r"; expect "\r"; log_user 0; 
-	expect -re "\nCPU Information:.*\n"
+	expect -re "\nCPU Information:.*\n.*\n.*\n.*\n"
 	log_user 1
 	set cpu_info $expect_out(buffer)
 	# remove 2 blank line before print
