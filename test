@@ -1,0 +1,39 @@
+#!/usr/bin/expect
+
+set global_var 1
+set no_of_thread 8
+set selected_test_type BLEND
+
+set test_type {SMALL INPLACE BLEND CUSTOM RANDOM}
+
+proc test {} {
+	puts $::global_var
+
+}
+
+proc set_no_of_thread {arg arg_value} {
+	if {string [is digit $arg_value]} {
+		set $::no_of_thread $arg_value
+		send_user "NUMMBER_OF_THREADS: $no_of_thread\n"
+	} else {
+		send_user "Invalid value '$arg_value' for '$arg'\n"
+		exit 1
+	}
+}
+
+proc set_test_type { arg arg_value } {
+	if {[lsearch -exact $::test_type [string toupper $arg_value]] >= 0} {
+		set $::selected_test_type [string toupper $arg_value]
+		send_user "Test Config: $::selected_test_type\n"
+	} else {
+		send_user "Invalid value '$arg_value' for '$arg'\n"
+	 	exit 1
+	}
+
+}
+
+#et_test_type --config small
+#et_test_type --config wat
+
+set_no_of_thread --thread 2
+set_no_of_thread --thread sad
