@@ -46,10 +46,25 @@ proc update_list_data {list variable new_value} {
 		set updated_list [lreplace $list $idx $idx $updated_data]
 		return $updated_list
 	}
-	
-
-
 }
+
+proc get_list_variable_value {list variable delim} {
+	set idx [lsearch $list "$variable$delim*"]
+	if {$idx >= 0} {
+		# {...} Group expression together can't use variable
+		# "..." Use this if got variable, but remember to escape
+		# '\' for character with special meaning for tcl
+		set variable_re "\[^$delim\]+$"
+		regexp $variable_re [lindex $list $idx] value	
+		return $value
+	}
+}
+
+
 set list [file_to_list "local.txt"]
 set list [update_list_data $list "NewCpuSpeed" 10]
+set value [get_list_variable_value $list "NewCpuSpeed" "="]
+puts $value
 list_to_file "temp.txt" $list
+
+
