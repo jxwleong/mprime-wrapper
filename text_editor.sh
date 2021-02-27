@@ -11,23 +11,45 @@ read_file "local.txt"
 
 proc remove_list_element {list element} {
 	set idx [lsearch $list $element]
-	set list [lreplace $list $idx $idx]
+	if {$idx >= 0} {
+		set list [lreplace $list $idx $idx]
+	}
 	return $list
 }
 
-proc process_file_data {filepath} {
+
+# Split the file line via '\n'
+proc file_to_list {filepath} {
     set fp [open $filepath r]
     set file_data [read $fp]
     close $fp
 
 	set data [split $file_data "\n"]
-	set data [remove_list_element $data "NewCpuSpeed=*"]
-	puts $data
-	#	foreach line $data {
-#		puts "1$data"
-#	}
+	return $data
+}
+
+proc list_to_file {filepath list} {
+	set fp [open $filepath w+]
+
+	set list [join $list "\n"]
+	puts $list
+	puts -nonewline $fp $list	
 
 }
 
-process_file_data "local.txt"
 
+
+proc update_list_data {list variable new_value} {
+    set idx [lsearch $list "$variable=*"]
+	if {$idx >= 0} {
+		set updated_data [regsub "$variable=." [lindex $list $idx] "$variable=$new_value"]
+		set updated_list [lreplace $list $idx $idx $updated_data]
+		return $updated_list
+	}
+	
+
+
+}
+set list [file_to_list "local.txt"]
+set list [update_list_data $list "NewCpuSpeed" 10]
+list_to_file "temp.txt" $list
