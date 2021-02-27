@@ -60,11 +60,20 @@ proc get_list_variable_value {list variable delim} {
 	}
 }
 
+proc remove_ansi_code_in_string {string} {
+	# \x1b - ESCAPE
+	# [^m]* - Beginning till 'm'
+	# m - Remove 'm'
+	set clean_string [regsub -all {\x1b[^m]*m} $string {}]
+	return $clean_string
+}
 
 set list [file_to_list "local.txt"]
 set list [update_list_data $list "NewCpuSpeed" 10]
 set value [get_list_variable_value $list "NewCpuSpeed" "="]
 puts $value
 list_to_file "temp.txt" $list
+
+puts [remove_ansi_code_in_string "\033\[01;31mLOL\033\[01;0m\n\r"]
 
 
