@@ -9,9 +9,21 @@ spawn ../Downloads/mprime
 # https://stackoverflow.com/a/17779833
 # Will extract any value/ characters in one level
 # parenthesis
-set VALUE_IN_PARENTHESIS_RE "\(([^)]+)\)"
+set VALUE_IN_PARENTHESIS_RE {\(([^)]+)\)}
 
-set timeout 
+
+proc get_number_of_thread {string} {
+	regexp $::VALUE_IN_PARENTHESIS_RE $string first_match second_match
+	# first_match with parenthesis
+	# second_match without parenthesis
+	return $second_match
+}
+
+
+set thread [get_number_of_thread "Number of torture test threads to run (8):"]
+puts $thread
+
+set timeout 10
 #============Start of expect================
 expect {
     # Choose Just stress testing
