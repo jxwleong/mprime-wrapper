@@ -6,7 +6,10 @@ close [open test.log "w"]
 log_file test.log
 spawn ../Downloads/mprime 
 
-
+# https://stackoverflow.com/a/17779833
+# Will extract any value/ characters in one level
+# parenthesis
+set VALUE_IN_PARENTHESIS_RE "\(([^)]+)\)"
 
 set timeout 
 #============Start of expect================
