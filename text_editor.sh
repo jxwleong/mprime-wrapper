@@ -68,12 +68,36 @@ proc remove_ansi_code_in_string {string} {
 	return $clean_string
 }
 
+
+proc remove_ansi_code_in_file {filepath} {
+	# Read and convert file data to string
+	# Then remove the ansi code
+	set fp [open $filepath "r"]
+	set file_data [read $fp]
+	set file_data [remove_ansi_code_in_string $file_data]
+	
+	# Truncate the original file
+	# Then write the 'cleaned' string to the same file
+	close [open $filepath "w"]
+	set fp [open $filepath "w"]
+	puts -nonewline $fp $file_data
+	close $fp
+}
+
+
 set list [file_to_list "local.txt"]
 set list [update_list_data $list "NewCpuSpeed" 10]
 set value [get_list_variable_value $list "NewCpuSpeed" "="]
 puts $value
 list_to_file "temp.txt" $list
 
-puts [remove_ansi_code_in_string "\033\[01;31mLOL\033\[01;0m\n\r"]
+set string "\033\[01;31mLOL\033\[01;0m\n\r"
+#puts [remove_ansi_code_in_string $string]
+#set fp [open "tmp.txt" "w"]
+#puts -nonewline $fp $string
+
+remove_ansi_code_in_file "tmp.txt"
+
+
 
 
