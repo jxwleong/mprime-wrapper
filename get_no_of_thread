@@ -1,0 +1,36 @@
+#!/usr/bin/expect -f
+
+# https://stackoverflow.com/a/17779833
+# Will extract any value/ characters in one level
+# parenthesis
+set VALUE_IN_PARENTHESIS_RE {\(([^)]+)\)}
+
+spawn mprime -m
+
+proc get_number_of_thread {string} {
+    regexp $::VALUE_IN_PARENTHESIS_RE $string first_match second_match
+    # first_match with parenthesis
+    # second_match without parenthesis
+    return $second_match
+}
+
+
+expect {
+    # Choose Just stress testing
+    "Join Gimps? (Y=Yes, N=Just stress testing) (Y):" {
+    send -- "N\r"; exp_continue }
+
+    # Select 8 threads
+    "Number of torture test threads to run" {
+    send -- "8\r"; 
+    expect "\r"
+    set buffer $expect_out(buffer)
+    send_user "Number of threads: [get_number_of_thread $buffer]\n";
+	exit 0
+	exp_continue }
+	
+	"Your choice: " {
+	send -- "16\r";
+	exp_continue }
+	}
+}
