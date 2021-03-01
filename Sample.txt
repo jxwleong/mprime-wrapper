@@ -1,0 +1,29 @@
+Accept the answers above? (Y): y
+[Main thread Mar 1 18:52] Starting workers.
+[Worker #1 Mar 1 18:52] Worker starting
+[Worker #1 Mar 1 18:52] Beginning a continuous self-test on your computer.
+[Worker #1 Mar 1 18:52] Please read stress.txt.  Hit ^C to end this test.
+[Worker #4 Mar 1 18:52] Worker starting
+[Worker #4 Mar 1 18:52] Beginning a continuous self-test on your computer.
+[Worker #4 Mar 1 18:52] Please read stress.txt.  Hit ^C to end this test.
+[Worker #3 Mar 1 18:52] Worker starting
+[Worker #2 Mar 1 18:52] Worker starting
+[Worker #3 Mar 1 18:52] Beginning a continuous self-test on your computer.
+[Worker #3 Mar 1 18:52] Please read stress.txt.  Hit ^C to end this test.
+[Worker #2 Mar 1 18:52] Beginning a continuous self-test on your computer.
+[Worker #2 Mar 1 18:52] Please read stress.txt.  Hit ^C to end this test.
+[Worker #4 Mar 1 18:52] Test 1, 1600000 Lucas-Lehmer in-place iterations of M83839 using FFT length 4K.
+[Worker #3 Mar 1 18:52] Test 1, 1600000 Lucas-Lehmer in-place iterations of M83839 using FFT length 4K.
+[Worker #2 Mar 1 18:52] Test 1, 1600000 Lucas-Lehmer in-place iterations of M83839 using FFT length 4K.
+[Worker #1 Mar 1 18:52] Test 1, 1600000 Lucas-Lehmer in-place iterations of M83839 using FFT length 4K.
+^C[Main thread Mar 1 18:53] Stopping all worker windows.
+[Worker #2 Mar 1 18:53] Torture Test completed 0 tests in 1 minutes - 0 errors, 0 warnings.
+[Worker #2 Mar 1 18:53] Worker stopped.
+[Worker #3 Mar 1 18:53] Torture Test completed 0 tests in 1 minutes - 0 errors, 0 warnings.
+[Worker #3 Mar 1 18:53] Worker stopped.
+[Worker #4 Mar 1 18:53] Torture Test completed 0 tests in 1 minutes - 0 errors, 0 warnings.
+[Worker #4 Mar 1 18:53] Worker stopped.
+[Worker #1 Mar 1 18:53] Torture Test completed 0 tests in 1 minutes - 0 errors, 0 warnings.
+[Worker #1 Mar 1 18:53] Worker stopped.
+[Main thread Mar 1 18:53] Execution halted.
+
