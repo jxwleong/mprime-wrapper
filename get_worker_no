@@ -1,0 +1,14 @@
+set test "\[Worker #22 Mar 9 11:00\] FATAL ERROR"
+
+set WORKER_NUMBER_RE {#\d*}
+
+
+
+proc get_worker_number {string} {
+    regexp $::WORKER_NUMBER_RE $string worker_number
+    # Remove the '#'
+    set worker_number [ string trim $worker_number "#" ]
+    return $worker_number
+}
+
+puts [get_worker_number $test]
