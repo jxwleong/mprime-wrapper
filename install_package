@@ -1,0 +1,22 @@
+is_package_installed() {
+    package=$1
+	if dpkg -s $package > /dev/null; then
+		return 1
+
+	else
+		return 0
+	fi
+
+}
+
+
+install_package() {
+	if is_package_installed $1 -eq 1; then
+		sudo apt-get install $1
+	
+	else
+		echo "Installed"
+	fi
+}
+
+install_package expect 
